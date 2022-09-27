@@ -1,0 +1,99 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v[0-9]+.*
+
+jobs:
+  # the create-release would be used once we want to create a specific release based on if the commit has a tag
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: taiki-e/create-gh-release-action@v1
+        env:
+          # (required)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+  build-happ:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # install hc tool
+      - name: Install hc tool and wasm target
+        shell: bash # important because this runs shell scripts
+        run: |
+          npm run happ-install
+      # build hApp
+      - name: Build hApp
+        run: |
+          npm run happ-pack
+      # "upload" dna as build artifact
+      - uses: actions/upload-artifact@master
+        with:
+          name: happ-artifact
+          path: happ/workdir/application.happ
+
+  # upload the app package for each target os
+  upload-assets:
+    needs: build-happ
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@master
+        with:
+          name: happ-artifact
+          path: happ/workdir
+      - name: list downloads
+        run: ls -R
+        working-directory: happ/workdir
+      # depending on the windows command (when we are ready to build for it), may have to check which os currently on
+      - name: Install nodejs dependencies
+        run: |
+          npm install
+          npm run web-install
+          npm run electron-install
+      # UNCOMMENT THIS SECTION FOR CODESIGNING AND NOTARIZING
+      # - name: setup for codesigning (macos only)
+      #   if: ${{ runner.os == 'macOs' }}
+      #   uses:  figleafteam/import-codesign-certs@v2
+      #   with:
+      #     p12-file-base64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+      #     p12-password: ${{ secrets.APPLE_CERTIFICATE_PASS }}
+      - name: build electron application (and notarize it- macos only)
+        env:
+          APPLE_DEV_IDENTITY: ${{ secrets.APPLE_DEV_IDENTITY }}
+          APPLE_ID_EMAIL: ${{ secrets.APPLE_ID_EMAIL }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          DEBUG: electron-osx-sign*,electron-notarize*
+        run: |    
+          npm run build
+        shell: bash
+      # Ubuntu
+      - name: upload binary (ubuntu only)
+        if: ${{ runner.os == 'Linux' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${GITHUB_REF#refs/tags/}" "electron/out/ElectronHolochainTemplate-0.0.1.AppImage" --clobber
+      # MacOS
+      - name: upload binary (macos only)
+        if: ${{ runner.os == 'macOs' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${GITHUB_REF#refs/tags/}" "electron/out/ElectronHolochainTemplate-0.0.1.dmg" --clobber
+      # Windows
+      - name: upload binary (Windows only)
+        if: ${{ runner.os == 'Windows' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "$($env:GITHUB_REF -replace "refs/tags/")" "electron/out/ElectronHolochainTemplate.Setup.0.0.1.exe" --clobber

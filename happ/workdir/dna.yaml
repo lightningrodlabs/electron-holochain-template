@@ -1,0 +1,16 @@
+---
+manifest_version: "1"
+name: application-dna
+integrity:
+  origin_time: 1654092432130000
+  uid: "0002"
+  properties: ~
+  zomes:
+    - name: integrity
+      bundled: ../../target/wasm32-unknown-unknown/release/integrity.wasm
+coordinator:
+  zomes:
+    - name: coordinator
+      bundled: ../../target/wasm32-unknown-unknown/release/coordinator.wasm
+      dependencies:
+        - name:  integrity
