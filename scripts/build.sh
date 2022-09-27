@@ -9,8 +9,11 @@
 # ensure all necessary binaries are packaged in the app
 rm -rf electron/binaries
 mkdir electron/binaries
+
 # copy any dna files into the electron/binaries folder for distribution
-cp happ/workdir/*.dna electron/binaries
+# uncomment the following line if you also need DNA files in your deliverable
+# cp happ/workdir/*.dna electron/binaries
+
 # copy a primary happ file into the electron/binaries folder for distribution
 cp happ/workdir/application.happ electron/binaries
 bash scripts/copy-binaries.sh
