@@ -42,10 +42,10 @@ jobs:
           set -xe
           mkdir -p ~/.config/nix/
           cp ./.github/nix.conf ~/.config/nix/
-      - uses: cachix/cachix-action@v10
+      - name: Use cachix
+        uses: cachix/cachix-action@v10
         with:
-          name: ci-builds
-          authToken: "${{ secrets.CACHIX_TOKEN }}"
+          name: holochain-ci
       - name: Prepare Nix environment
         run: nix-shell --command "echo Completed"
       # build hApp
