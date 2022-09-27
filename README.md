@@ -62,7 +62,7 @@ You can run `npm run user-data-reset` if you have user data in development, but 
 
 **web** (user interface)
 
-- Use nodejs version 14
+- Use nodejs version 16
 - `npm run web-install`
 - `npm run web`
 
