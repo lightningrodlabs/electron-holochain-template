@@ -1,5 +1,5 @@
 use hdk::prelude::*;
-use integrity::*;
+// use integrity::*;
 
 #[hdk_extern]
 pub fn init(_: ()) -> ExternResult<InitCallbackResult> {
