@@ -5,23 +5,11 @@ user2-data
 user-data
 electron/web
 
-dna/workdir/*.dna
-
-web/dist/*.js
-web/dist/*.js.map
+happ/workdir/*.dna
+happ/workdir/*.happ
 
 target/
-back/.cargo/
-back/2-conductor-config.yml
-back/scripts/2-install-happ.sh
-2-config-admin-ws
-2-config-app-ws
 .hc
-databases
-databases2
-keystore
-keystore2
-my-proxy-cert.cert
 
 **/.DS_Store
 .DS_Store
