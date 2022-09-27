@@ -20,8 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-           # this should be with Cargo.lock files
-      # technically, but this repo doesn't have them checked in to git
       - uses: actions/cache@v2
         with:
           path: |
@@ -34,15 +32,11 @@ jobs:
             .cargo/registry/cache/
             .cargo/git/db/
             target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: Use Nix
         uses: cachix/install-nix-action@v16
         with:
           nix_path: nixpkgs=channel:nixos-21.05
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
       - name: Configure Nix substituters
         run: |
           set -xe
