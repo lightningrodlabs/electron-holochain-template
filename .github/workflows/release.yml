@@ -88,13 +88,13 @@ jobs:
       #   if: ${{ runner.os == 'macOs' }}
       #   uses:  figleafteam/import-codesign-certs@v2
       #   with:
-      #     p12-file-base64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
-      #     p12-password: ${{ secrets.APPLE_CERTIFICATE_PASS }}
+      #     p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
+      #     p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
       - name: build electron application (and notarize it- macos only)
         env:
           APPLE_DEV_IDENTITY: ${{ secrets.APPLE_DEV_IDENTITY }}
-          APPLE_ID_EMAIL: ${{ secrets.APPLE_ID_EMAIL }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_ID_EMAIL: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           DEBUG: electron-osx-sign*,electron-notarize*
         run: |    
           npm run build
