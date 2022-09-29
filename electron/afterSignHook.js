@@ -28,8 +28,8 @@ module.exports = async function (params) {
     await electronNotarize.notarize({
       appBundleId: appId,
       appPath: appPath,
-      appleId: process.env.APPLE_ID_EMAIL,
-      appleIdPassword: process.env.APPLE_ID_PASSWORD,
+      appleId: process.env.APPLE_ID,
+      appleIdPassword: process.env.APPLE_PASSWORD,
     })
   } catch (error) {
     console.error(error)
