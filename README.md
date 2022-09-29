@@ -93,13 +93,13 @@ The packaged executables can be found in `electron/out`.
 In order to get cross-platform builds, just tag your repository like `v0.0.1` and push those tags to Github. CI will automatically start running a build, under the "Release" action.
 
 > Macos: You will need to have set the following environment variables as repository secrets:
-> - APPLE_CERTIFICATE_BASE64
-> - APPLE_CERTIFICATE_PASS
+> - APPLE_CERTIFICATE
+> - APPLE_CERTIFICATE_PASSWORD
 > - APPLE_DEV_IDENTITY
-> - APPLE_ID_EMAIL
-> - APPLE_ID_PASSWORD
+> - APPLE_ID
+> - APPLE_PASSWORD
 > 
-> The first two should be set as equivalents of `MACOS_CERTIFICATE` = `APPLE_CERTIFICATE_BASE64` and `MACOS_CERTIFICATE_PWD` = `APPLE_CERTIFICATE_PASS` as found in the following article, which also provides other instruction regarding this: https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
+> See: https://hackmd.io/@connoropolous/HkxeYYgzo
 >
 > There is a sixth environment variable which is useful to set, like this: `DEBUG: electron-osx-sign*,electron-notarize*`. This allows for useful logging outputs from the signing and notarizing process. This env var is set automatically when running on CI, in the "Release" Github Action.
 
