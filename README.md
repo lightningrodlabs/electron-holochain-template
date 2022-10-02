@@ -127,13 +127,13 @@ KEYSTORE_VERSION_ID should be incremented if you want users to have to switch an
 
 This project is currently using:
 
-holochain-runner [v0.2.0](https://github.com/Sprillow/holochain-runner/releases/tag/v0.2.0)
+holochain-runner [v0.3.0](https://github.com/Sprillow/holochain-runner/releases/tag/v0.3.0)
 
-which has an underlying `holochain` version of [0.0.162](https://github.com/holochain/holochain/releases/tag/holochain-0.0.162)
+which has an underlying `holochain` version of [0.0.165](https://github.com/holochain/holochain/releases/tag/holochain-0.0.165)
 
 expects an HAPP built with
-- HDK [v0.0.152](https://docs.rs/hdk/0.0.152/hdk/index.html)
-- HDI [v0.1.2](https://docs.rs/hdi/0.1.2/hdi/index.html)
+- HDK [v0.0.154](https://docs.rs/hdk/0.0.154/hdk/index.html)
+- HDI [v0.1.3](https://docs.rs/hdi/0.1.3/hdi/index.html)
 
 and [electron 20](https://www.electronjs.org/docs/latest/api/app)
 
