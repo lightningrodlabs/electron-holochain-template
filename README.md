@@ -29,7 +29,7 @@ Replace `electron/build/icon.icns`. This one is utilized by MacOS.
 
 Replace `electron/build/icon.ico`. This one is utilized by Windows
 
-TODO: linux
+[TODO: linux](https://github.com/lightningrodlabs/electron-holochain-template/issues/2)
 
 ## Run Locally and Develop on your Computer
 
