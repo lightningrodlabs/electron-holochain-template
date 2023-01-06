@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
+// TODO https://github.com/lightningrodlabs/electron-holochain-template/issues/7
 // import log from 'electron-log'
 import initAgent, { StateSignal, STATUS_EVENT } from '@lightningrodlabs/electron-holochain'
 
