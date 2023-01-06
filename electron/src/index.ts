@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
 // import log from 'electron-log'
 import initAgent, { StateSignal, STATUS_EVENT } from '@lightningrodlabs/electron-holochain'
@@ -60,11 +60,6 @@ const createMainWindow = (): BrowserWindow => {
     // development
     mainWindow.loadURL(DEVELOPMENT_UI_URL)
   }
-  // Open <a href='' target='_blank'> with default system browser
-  mainWindow.webContents.on('new-window', function (event, url) {
-    event.preventDefault()
-    shell.openExternal(url)
-  })
   // once its ready to show, show
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()

@@ -8,5 +8,5 @@ name = "integrity"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-hdi = "0.1.3"
+hdi = "0.2.0-beta-rc.1"
 serde = "*"
